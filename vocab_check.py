@@ -3,12 +3,22 @@ from spellchecker import SpellChecker
 import string
 from nltk.corpus import wordnet
 
+# Download required NLTK resources once
 nltk.download('punkt_tab', quiet=True)
 nltk.download('words', quiet=True)
 nltk.download('wordnet', quiet=True)
 
-# Initialize spell checker
-spell = SpellChecker()
+_cached_spell = None
+
+def get_spellchecker():
+    """
+    Returns a cached SpellChecker instance.
+    """
+    global _cached_spell
+    if _cached_spell is None:
+        print("Initializing SpellChecker...")
+        _cached_spell = SpellChecker()
+    return _cached_spell
 
 def is_valid_word(word):
     """
@@ -25,6 +35,11 @@ def is_valid_word(word):
     return False
 
 def vocabulary_score(paragraph: str):
+    """
+    Returns a vocabulary score (0-2) for a paragraph.
+    """
+    spell = get_spellchecker()  # Use cached spell checker
+
     # Remove punctuation
     text = paragraph.translate(str.maketrans('', '', string.punctuation))
     

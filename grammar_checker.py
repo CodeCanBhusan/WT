@@ -1,9 +1,23 @@
 import language_tool_python
 
-# Initialize grammar tool
-tool = language_tool_python.LanguageTool('en-US')
+_cached_tool = None
+
+def get_tool():
+    """
+    Returns a cached LanguageTool instance.
+    Initializes it only once.
+    """
+    global _cached_tool
+    if _cached_tool is None:
+        print("Initializing LanguageTool...")
+        _cached_tool = language_tool_python.LanguageTool('en-US')
+    return _cached_tool
 
 def grammar_score(text: str):
+    """
+    Checks grammar and returns score, remark, and mistakes.
+    """
+    tool = get_tool()  # use cached tool
     matches = tool.check(text)
     num_errors = len(matches)
 

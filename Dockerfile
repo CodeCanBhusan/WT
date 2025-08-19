@@ -21,7 +21,8 @@ COPY . .
 # Expose FastAPI port
 EXPOSE 8000
 
-# Run FastAPI with uvicorn
-# CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# For local with 8000 port
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 
-CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port $PORT"]
+# For Deploy with assigned port
+# CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port $PORT"]

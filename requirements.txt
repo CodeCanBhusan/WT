@@ -7,3 +7,6 @@ transformers==4.55.2
 language-tool-python==2.9.4
 nltk==3.9.1
 pyspellchecker==0.8.3  
+python-dotenv
+fastapi[standard]
+uvicorn[standard]
